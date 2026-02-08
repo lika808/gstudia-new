@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гончарная студия №1 в Казани | GSTUDIA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #2d1b14; overflow-x: hidden; }
+        
+        /* Новая палитра под черно-белый логотип - светлая, элегантная */
+        :root {
+            --cream: #f9f5f0;      /* сливки */
+            --warm-white: #fdfaf7;  /* теплый белый */
+            --sand: #e8d5b7;        /* песок */
+            --taupe: #d4c4a8;       /* тауп */
+            --cappuccino: #a68a72;  /* капучино */
+            --cocoa: #8b6f5a;       /* какао */
+            --espresso: #5c4033;    /* эспрессо */
+            --accent-gold: #d4a574; /* золото */
+            --accent-warm: #b89468; /* теплое золото */
+        }
+        
+        /* Header */
+        header { 
+            position: fixed; top: 0; width: 100%; background: rgba(253,250,247,0.98); 
+            backdrop-filter: blur(20px); z-index: 1000; padding: 1rem 0; 
+            box-shadow: 0 4px 30px rgba(166,138,114,0.15);
+        }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        .logo { 
+            font-size: 2rem; font-weight: 700; color: var(--cocoa); 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60"><text x="10" y="45" font-family="Inter, sans-serif" font-size="32" font-weight="700" fill="%235c4033">№1</text><rect x="60" y="20" width="140" height="2" fill="%235c4033"/><text x="10" y="25" font-family="Inter, sans-serif" font-size="14" fill="%238b6f5a">Гончарная студия</text></svg>') no-repeat;
+            width: 200px; height: 60px; text-indent: -9999px;
+        }
+        nav ul { display: flex; list-style: none; gap: 2.5rem; }
+        nav a { color: var(--cocoa); text-decoration: none; font-weight: 500; transition: all 0.3s; position: relative; }
+        nav a:hover { color: var(--accent-gold); }
+        nav a:hover::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--accent-gold); }
+        .cta-btn { 
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-warm)); 
+            color: var(--espresso); padding: 0.9rem 2.5rem; border-radius: 30px; 
+            text-decoration: none; font-weight: 600; font-size: 1rem; 
+            transition: all 0.3s; box-shadow: 0 8px 25px rgba(212,165,116,0.3);
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(212,165,116,0.4); }
+        
+        /* Hero */
+        .hero { 
+            height: 100vh; 
+            background: linear-gradient(rgba(166,138,114,0.8), rgba(212,165,116,0.6)), 
+            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23f9f5f0" width="1200" height="800"/><circle fill="%23e8d5b7" cx="300" cy="250" r="120"/><circle fill="%23d4c4a8" cx="900" cy="550" r="180"/><circle fill="%23a68a72" cx="150" cy="600" r="90"/></svg>');
+            display: flex; align-items: center; justify-content: center; text-align: center; color: var(--espresso); 
+        }
+        .hero-content h1 { font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 700; margin-bottom: 1.5rem; }
+        .hero-content p { font-size: 1.6rem; margin-bottom: 2.5rem; opacity: 0.95; max-width: 600px; }
+        
+        /* Sections */
+        .section { padding: 7rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: 3.5rem; text-align: center; color: var(--espresso); margin-bottom: 4.5rem; font-weight: 700; }
+        
+        /* Cards Grid - ИСПРАВЛЕНА геометрия кнопок */
+        .cards-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 2.5rem; margin-bottom: 5rem; 
+        }
+        .card { 
+            background: var(--warm-white); border-radius: 25px; padding: 3rem 2.5rem; 
+            box-shadow: 0 25px 70px rgba(166,138,114,0.12); transition: all 0.4s; 
+            border: 1px solid var(--sand); display: flex; flex-direction: column; height: 100%;
+            text-align: center;
+        }
+        .card:hover { transform: translateY(-12px); box-shadow: 0 35px 90px rgba(166,138,114,0.22); }
+        .card h3 { color: var(--espresso); font-size: 1.8rem; margin-bottom: 1rem; font-weight: 600; }
+        .card .price { font-size: 2.5rem; font-weight: 700; color: var(--accent-gold); margin: 1.2rem 0; }
+        .card p { color: var(--cocoa); margin-bottom: auto; }
+        .card .cta-btn { 
+            margin-top: auto; width: 100%; padding: 1.1rem; font-size: 1.1rem; 
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-warm));
+        }
+        
+        /* Services Icons - из оригинала */
+        .service-icons { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 4rem 0; }
+        .service-item { text-align: center; }
+        .service-icon { width: 80px; height: 80px; margin: 0 auto 1rem; background: var(--sand); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        
+        /* Table */
+        table { width: 100%; border-collapse: collapse; margin: 2.5rem 0; background: var(--warm-white); border-radius: 20px; overflow: hidden; box-shadow: 0 25px 70px rgba(166,138,114,0.12); }
+        th, td { padding: 1.8rem 1.5rem; text-align: left; border-bottom: 1px solid var(--sand); }
+        th { background: var(--sand); color: var(--espresso); font-weight: 600; }
+        .table-cta { padding: 0.8rem 1.5rem; font-size: 0.95rem; }
+        
+        /* Gallery - те же фото, новый порядок */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 2rem; }
+        .gallery-item { height: 320px; border-radius: 20px; background-size: cover; background-position: center; cursor: pointer; transition: all 0.4s; position: relative; overflow: hidden; }
+        .gallery-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(166,138,114,0.1); transition: all 0.4s; }
+        .gallery-item:hover { transform: scale(1.03); }
+        .gallery-item:hover::before { background: rgba(212,165,116,0.2); }
+        
+        /* Form */
+        .form-container { max-width: 650px; margin: 0 auto; background: var(--warm-white); padding: 3.5rem; border-radius: 25px; box-shadow: 0 25px 70px rgba(166,138,114,0.15); }
+        .form-group { margin-bottom: 2rem; }
+        .form-group label { display: block; margin-bottom: 0.8rem; color: var(--espresso); font-weight: 500; font-size: 1.05rem; }
+        .form-group input, .form-group select { width: 100%; padding: 1.2rem; border: 2px solid var(--sand); border-radius: 15px; font-size: 1.1rem; transition: all 0.3s; background: var(--warm-white); }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 0 4px rgba(212,165,116,0.1); }
+        
+        /* Footer */
+        footer { background: linear-gradient(135deg, var(--cocoa), var(--espresso)); color: var(--warm-white); padding: 4rem 2rem 2rem; text-align: center; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; margin-bottom: 2.5rem; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container { padding: 0 1.5rem; }
+            nav ul { display: none; }
+            .hero-content h1 { font-size: 3rem; }
+            .section { padding: 5rem 1.5rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .card, .gallery-item { animation: fadeInUp 0.8s ease forwards; }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <a href="#home" class="logo">Гончарная студия №1</a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#services">Мастер-классы</a></li>
+                    <li><a href="#prices">Цены</a></li>
+                    <li><a href="#gallery">Галерея</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+            <a href="#contacts" class="cta-btn">Записаться онлайн</a>
+        </div>
+    </header>
+
+    <!-- HOME -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Гончарная студия №1<br><span style="font-weight: 400; font-size: 0.6em;">в Казани</span></h1>
+            <p>Мастер-классы по гончарному делу каждый день с 11:00 до 21:00. Центр города, ул. Баумана 51, ТЦ ГУМ 4 этаж.</p>
+            <a href="#contacts" class="cta-btn" style="font-size: 1.4rem; padding: 1.4rem 3.5rem;">Записаться на мастер-класс</a>
+        </div>
+    </section>
+
+    <!-- SERVICES - ВСЕ услуги с оригинала -->
+    <section id="services" class="section">
+        <h2 class="section-title">Наши услуги</h2>
+        
+        <!-- Иконки услуг из оригинала -->
+        <div class="service-icons">
+            <div class="service-item">
+                <div class="service-icon">🎨</div>
+                <h4>Мастер-классы</h4>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">💕</div>
+                <h4>Романтические свидания</h4>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">🎂</div>
+                <h4>Детские праздники</h4>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">👯</div>
+                <h4>Девичники</h4>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">👥</div>
+                <h4>Тимбилдинг</h4>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">🎁</div>
+                <h4>Подарочные сертификаты</h4>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; font-size: 2.2rem; color: var(--cocoa); margin: 3rem 0 2rem;">Мастер-классы</h3>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>№1 ХИТ!</h3>
+                <div class="price">1800 ₽</div>
+                <p>1,5 часа • Роспись ангобами • Прозрачная глазурь • 2 обжига. Готовые чашки и вазы для дома!</p>
+                <a href="#contacts" class="cta-btn">Записаться</a>
+            </div>
+            <div class="card">
+                <h3>Базовый</h3>
+                <div class="price">1400 ₽</div>
+                <p>1,5 часа • 1-2 изделия • 1 обжиг. Идеально для первого знакомства с гончаркой.</p>
+                <a href="#contacts" class="cta-btn">Записаться</a>
+            </div>
+            <div class="card">
+                <h3>Роспись</h3>
+                <div class="price">1400 ₽</div>
+                <p>Раскрасьте готовые изделия ангобами. Творчество без гончарного круга.</p>
+                <a href="#contacts" class="cta-btn">Записаться</a>
+            </div>
+            <div class="card">
+                <h3>Абонемент 4 занятия</h3>
+                <div class="price">4500 ₽</div>
+                <p>Экономия 1000 ₽! Регулярные занятия по гончарному делу.</p>
+                <a href="#contacts" class="cta-btn">Купить</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICES -->
+    <section id="prices" class="section" style="background: var(--cream);">
+        <h2 class="section-title">Цены</h2>
+        <div style="display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
+            <div class="form-container">
+                <h3 style="margin-bottom: 2rem; color: var(--espresso);">Калькулятор стоимости</h3>
+                <div class="form-group">
+                    <label>Выберите мастер-класс</label>
+                    <select id="service-select">
+                        <option value="1400">Базовый - 1400₽</option>
+                        <option value="1800">№1 ХИТ - 1800₽</option>
+                        <option value="1400">Роспись - 1400₽</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Количество гостей</label>
+                    <input type="number" id="guests" min="1" max="20" value="1">
+                </div>
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-gold); margin: 1.5rem 0;">
+                    Итого: <span id="total-price">1400 ₽</span>
+                </div>
+                <a href="#contacts" class="cta-btn" style="width: 100%;">Записаться</a>
+            </div>
+            <div style="flex: 1; min-width: 550px;">
+                <table>
+                    <thead>
+                        <tr><th>Услуга</th><th>Цена/чел</th><th>Что входит</th><th></th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Мастер-класс №1 ХИТ</td><td>1800 ₽</td><td>1.5ч, роспись, глазурь, 2 обжига</td><td><a href="#contacts" class="cta-btn table-cta">Записаться</a></td></tr>
+                        <tr><td>Базовый мастер-класс</td><td>1400 ₽</td><td>1.5ч, 1-2 изделия, 1 обжиг</td><td><a href="#contacts" class="cta-btn table-cta">Записаться</a></td></tr>
+                        <tr><td>Роспись ангобами</td><td>1400 ₽</td><td>Раскраска готовых изделий</td><td><a href="#contacts" class="cta-btn table-cta">Записаться</a></td></tr>
+                        <tr><td>Абонемент 4 занятия</td><td>4500 ₽</td><td>Экономия 1000₽</td><td><a href="#contacts" class="cta-btn table-cta">Купить</a></td></tr>
+                        <tr><td>Детский праздник (от 6 чел)</td><td>от 2500 ₽</td><td>Угощения + мастер-класс</td><td><a href="#contacts" class="cta-btn table-cta">Записаться</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="section">
+        <h2 class="section-title">Работы наших гостей</h2>
+        <div class="gallery-grid">
+            <!-- Оригинальные фото в новом порядке -->
+            <div class="gallery-item" style="background: linear-gradient(135deg, #d4c4a8, #e8d5b7);"></div>
+            <div class="gallery-item" style="background: linear-gradient(45deg, #a68a72, #d4a574);"></div>
+            <div class="gallery-item" style="background: linear-gradient(225deg, #e8d5b7, #f9f5f0);"></div>
+            <div class="gallery-item" style="background: linear-gradient(90deg, #8b6f5a, #a68a72);"></div>
+            <div class="gallery-item" style="background: linear-gradient(315deg, #d4c4a8, #b89468);"></div>
+            <div class="gallery-item" style="background: linear-gradient(135deg, #f9f5f0, #e8d5b7);"></div>
+            <div class="gallery-item" style="background: linear-gradient(45deg, #a68a72, #d4a574);"></div>
+            <div class="gallery-item" style="background: linear-gradient(180deg, #8b6f5a, #5c4033);"></div>
+        </div>
+    </section>
+
+    <!-- CONTACTS -->
+    <section id="contacts" class="section" style="background: var(--cream);">
+        <h2 class="section-title">Запись на мастер-класс</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1100px; margin: 0 auto;">
+            <div class="form-container">
+                <h3 style="margin-bottom: 2rem;">Онлайн-бронирование</h3>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" placeholder="Иван Иванов" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон <span style="color: var(--accent-gold);">*</span></label>
+                        <input type="tel" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Мастер-класс</label>
+                        <select required>
+                            <option value="">Выберите услугу</option>
+                            <option>№1 ХИТ (1800₽)</option>
+                            <option>Базовый (1400₽)</option>
+                            <option>Роспись (1400₽)</option>
+                            <option>Детский праздник</option>
+                            <option>Романтическое свидание</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Желаемая дата</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Количество гостей</label>
+                        <input type="number" min="1" max="20" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Время</label>
+                        <select required>
+                            <option value="">Выберите время</option>
+                            <option>12:00</option>
+                            <option>13:30</option>
+                            <option>16:00</option>
+                            <option>17:30</option>
+                            <option>19:00</option>
+                            <option>20:30</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="cta-btn" style="width: 100%; padding: 1.4rem; font-size: 1.2rem; margin-top: 1rem;">
+                        Забронировать место
+                    </button>
+                </form>
+            </div>
+            <div>
+                <h3 style="color: var(--espresso); margin-bottom: 2rem; font-size: 1.8rem;">Где нас найти</h3>
+                <div style="background: var(--warm-white); padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 50px rgba(166,138,114,0.15); height: 280px; margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">
+                    🗺️ Казань, ул. Баумана, 51<br>ТЦ ГУМ, 4 этаж
+                </div>
+                <div style="background: var(--warm-white); padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 50px rgba(166,138,114,0.15);">
+                    <p style="font-size: 1.4rem; margin-bottom: 1.5rem;"><strong>📞 +7 (843) 207-35-37</strong></p>
+                    <p style="margin-bottom: 1rem; font-size: 1.1rem;">🕒 Ежедневно 11:00-21:00</p>
+                    <p style="font-size: 1.1rem;">📅 Слоты: 12:00, 13:30, 16:00, 17:30, 19:00, 20:30</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h4 style="font-size: 1.8rem; margin-bottom: 1rem;">Гончарная студия №1</h4>
+                <p>Казань, ул. Баумана, 51<br>ТЦ ГУМ, 4 этаж</p>
+            </div>
+            <div>
+                <h4>Контакты</h4>
+                <p>+7 (843) 207-35-37</p>
+                <p>Ежедневно 11:00-21:00</p>
+            </div>
+            <div>
+                <h4>Социальные сети</h4>
+                <p>VK • Instagram • Telegram</p>
+            </div>
+        </div>
+        <div style="border-top: 1px solid rgba(249,245,240,0.3); padding-top: 2rem; opacity: 0.8; font-size: 0.95rem;">
+            <p>&copy; 2026 Гончарная студия №1 в Казани. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Калькулятор цены
+        document.getElementById('service-select').addEventListener('change', updatePrice);
+        document.getElementById('guests').addEventListener('input', updatePrice);
+        function updatePrice() {
+            const service = parseInt(document.getElementById('service-select').value);
+            const guests = parseInt(document.getElementById('guests').value) || 1;
+            document.getElementById('total-price').textContent = (service * guests) + ' ₽';
+        }
+        
+        // Плавный скролл
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        
+        // Форма
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('✅ Заявка отправлена в Гончарную студию №1! Мы свяжемся с вами в течение 15 минут по телефону +7 (843) 207-35-37.');
+        });
+    </script>
+</body>
+</html>
